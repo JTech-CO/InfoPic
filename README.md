@@ -8,6 +8,8 @@
 
 **Create informational carousels entirely in your browser.**
 
+### [Go to Website](<https://jtech-co.github.io/InfoPic/>)
+
 InfoPic is a lightweight editor for Instagram-style card sets, with built-in layouts for **cover → content → hook → branding**. It runs entirely on your device without a backend, account, AI service, or external API.
 
 <img src="./images/1-Main.png" alt="InfoPic logo" width="80%">
