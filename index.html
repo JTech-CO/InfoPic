@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data: blob:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+  <meta name="color-scheme" content="light dark">
+  <meta name="description" content="A private, client-side carousel studio. Turn an idea into a cover, content cards, a hook, and a branded finish. No accounts, uploads, or API calls.">
+  <title>InfoPic — The carousel studio</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCIgdmlld0JveD0iMCAwIDQwIDQwIj48cmVjdCB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHJ4PSI5IiBmaWxsPSIjNTM1NkQ4Ii8+PGcgZmlsbD0iI2ZmZiI+PHJlY3QgeD0iOSIgeT0iOSIgd2lkdGg9IjkiIGhlaWdodD0iMTMiIHJ4PSIxIi8+PHJlY3QgeD0iMjIiIHk9IjkiIHdpZHRoPSI5IiBoZWlnaHQ9IjciIHJ4PSIxIi8+PHJlY3QgeD0iOSIgeT0iMjYiIHdpZHRoPSI5IiBoZWlnaHQ9IjUiIHJ4PSIxIi8+PHJlY3QgeD0iMjIiIHk9IjIwIiB3aWR0aD0iOSIgaGVpZ2h0PSIxMSIgcng9IjEiLz48L2c+PC9zdmc+Cg==">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <a class="skip-link" href="#inspector" data-i18n="skipToEditor">Skip to editor</a>
+  <header class="app-header">
+    <a class="app-logo" href="./" data-label="homeLabel" aria-label="About InfoPic" id="homeLink">
+      <span class="logo-mark" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+      <span>InfoPic<span class="logo-period">.</span></span>
+    </a>
+    <span class="app-tag" data-i18n="appTag">The carousel studio</span>
+    <div class="header-divider"></div>
+    <div class="project-menu-wrap">
+      <button class="button quiet" id="projectMenuButton" aria-haspopup="menu" aria-expanded="false"><span data-icon="folder"></span><span data-i18n="project">Project</span><span data-icon="chevronDown" class="small-icon"></span></button>
+      <div id="projectMenu" class="popover project-menu" role="menu" hidden></div>
+    </div>
+    <span class="header-spacer"></span>
+    <div class="history-actions">
+      <button class="icon-button" id="undoButton" data-title="undo" aria-label="Undo" disabled><span data-icon="undo"></span></button>
+      <button class="icon-button" id="redoButton" data-title="redo" aria-label="Redo" disabled><span data-icon="redo"></span></button>
+    </div>
+    <div class="header-divider compact-divider"></div>
+    <button class="button language-button quiet" id="languageButton" aria-label="Interface language"><span data-icon="languages"></span><span id="languageLabel">EN</span></button>
+    <button class="icon-button" id="themeButton" data-title="theme" aria-label="Switch color theme"><span data-icon="moon"></span></button>
+    <button class="button primary export-button" id="exportButton"><span data-icon="download"></span><span data-i18n="export">Export</span></button>
+  </header>
+
+  <main class="workspace">
+    <aside class="storyboard" data-label="cardList" aria-label="Card list">
+      <div class="storyboard-heading"><span class="eyebrow" data-i18n="yourStory">CARDS</span><span class="count-badge" id="slideCount">6</span></div>
+      <div class="story-list" id="storyList"></div>
+      <div class="storyboard-footer">
+        <button class="button outline full" id="addContentButton"><span data-icon="plus"></span><span data-i18n="addContent">Add content card</span><span id="contentCount" class="muted"></span></button>
+        <p class="hint drag-hint" data-i18n="dragHint">Drag content cards to reorder. Cover, hook, and branding stay in place.</p>
+        <button class="privacy-link" id="privacyButton"><span data-icon="shield"></span><span data-i18n="localOnly">On this device only</span></button>
+      </div>
+    </aside>
+
+    <section class="stage" data-label="cardPreview" aria-label="Card preview">
+      <div class="workspace-heading">
+        <div class="story-title-row"><input id="projectName" class="story-name" value="My first project" maxlength="120" aria-label="Project name"><span data-icon="pencil" class="rename-icon"></span></div>
+        <div class="workspace-subline"><span class="status-dot"></span><span id="storageStatus">Session only · not saved</span></div>
+      </div>
+      <div class="stage-toolbar">
+        <div class="ratio-switch" role="group" data-label="aspectRatio" aria-label="Aspect ratio"><button data-ratio="3:4" class="selected">3:4</button><button data-ratio="9:16">9:16</button></div>
+        <span class="canvas-dimensions" id="canvasDimensions">1080 × 1440</span>
+        <button class="button quiet review-button" id="reviewButton"><span data-icon="grid"></span><span data-i18n="previewAll">Review cards</span></button>
+      </div>
+      <div class="canvas-area" id="canvasArea">
+        <div class="canvas-frame" id="canvasFrame"><canvas id="previewCanvas" width="1080" height="1440" data-label="editablePreview" aria-label="Editable card preview" tabindex="0"></canvas></div>
+      </div>
+      <div class="stage-warning" id="stageWarning" role="status" hidden></div>
+      <div class="stage-bottom"><div><strong id="currentSlideLabel">Cover</strong><span id="slidePosition" class="muted">01 / 06</span></div><button class="button quiet" id="quickPngButton"><span data-icon="download"></span><span data-i18n="png">Download PNG</span></button></div>
+      <p class="stage-hint" data-i18n="previewHint">Click text in the preview to edit it.</p>
+    </section>
+
+    <aside class="inspector" id="inspector" data-label="cardEditor" aria-label="Card editor">
+      <div class="inspector-heading"><div><span class="eyebrow" data-i18n="editing">EDITING</span><h1 id="editingTitle">Cover</h1></div><span class="template-mark" data-icon="sliders"></span></div>
+      <div class="editor-tabs" role="tablist" data-label="editorSections" aria-label="Editor sections">
+        <button role="tab" id="tab-write" data-tab="write" aria-selected="true" aria-controls="editorPanel"><span data-icon="type"></span><span data-i18n="write">Text</span></button>
+        <button role="tab" id="tab-image" data-tab="image" aria-selected="false" aria-controls="editorPanel"><span data-icon="image"></span><span data-i18n="image">Background</span></button>
+        <button role="tab" id="tab-brand" data-tab="brand" aria-selected="false" aria-controls="editorPanel"><span data-icon="stamp"></span><span data-i18n="branding">Brand</span></button>
+      </div>
+      <div id="editorPanel" class="editor-panel" role="tabpanel" aria-labelledby="tab-write"></div>
+    </aside>
+  </main>
+
+  <input type="file" id="imageInput" accept="image/jpeg,image/png,image/webp" hidden>
+  <input type="file" id="logoInput" accept="image/jpeg,image/png,image/webp" hidden>
+  <input type="file" id="fontInput" accept=".ttf,.otf,.woff,.woff2" hidden>
+  <input type="file" id="projectInput" accept=".json,.infopic" hidden>
+  <dialog id="appDialog" class="app-dialog"><div id="dialogContent"></div></dialog>
+  <div id="toastRegion" class="toast-region" aria-live="polite" aria-atomic="true"></div>
+  <div id="busyIndicator" class="busy-indicator" role="status" hidden><span class="busy-dot"></span><span id="busyText">Working…</span></div>
+  <noscript><div class="noscript">InfoPic needs JavaScript to edit and export cards. All processing happens on your device.</div></noscript>
+<script src="js/model.js"></script>
+<script src="js/i18n.js"></script>
+<script src="js/zip.js"></script>
+<script src="js/assets.js"></script>
+<script src="js/renderer.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
